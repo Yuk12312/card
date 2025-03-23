@@ -11,7 +11,7 @@ const cardData = [
         rarity: 'N',
         effect: '小毓毓會瘋狂讚您',
         execution: '連續講出10個不重複的優點',
-        image: 'card1.png'
+        image: 'cards/card1.png'
     },
     {
         id: 2,
@@ -19,7 +19,7 @@ const cardData = [
         rarity: 'R',
         effect: '召喚小毓毓幫你送外賣',
         execution: '寫下想吃的食物（或從推薦餐廳選擇）',
-        image: 'card2.png'
+        image: 'cards/card2.png'
     },
     {
         id: 3,
@@ -27,7 +27,7 @@ const cardData = [
         rarity: 'SR',
         effect: '兌換指定部位按摩',
         execution: '15分鐘專業按摩服務（需預約）',
-        image: 'card3.png'
+        image: 'cards/card3.png'
     },
     {
         id: 4,
@@ -35,7 +35,7 @@ const cardData = [
         rarity: 'SSR',
         effect: '立即終止冷戰',
         execution: '書面檢討並提出改善方案',
-        image: 'card4.png'
+        image: 'cards/card4.png'
     },
     {
         id: 5,
@@ -43,7 +43,7 @@ const cardData = [
         rarity: 'UR',
         effect: '兌換神秘盲盒禮物',
         execution: '準備心跳加速的驚喜',
-        image: 'card5.png'
+        image: 'cards/card5.png'
     }
 ];
 
@@ -67,25 +67,74 @@ function showPage(pageId) {
     document.getElementById('points').textContent = gameData.points;
 }
 
-// 遊戲功能
 function startGame() {
     const questions = [
-        "小毓毓最喜歡的顏色？",
-        "我們第一次約會的地點？",
-        "小毓毓的生日月份？",
-        "我最喜歡小毓毓的哪一點？"
+        { 
+            text: "小毓毓最喜歡的顏色？",
+            answer: "紫色",
+            hint: "浪漫又神秘的顏色"
+        },
+        { 
+            text: "我們第一次約會的地點？",
+            answer: "貓cafe",
+            hint: "很多可愛生物的地方"
+        },
+        { 
+            text: "小毓毓的生日月份？",
+            answer: "5",
+            hint: "我們在一起的月份"
+        },
+        { 
+            text: "我最喜歡小毓毓的哪一點？",
+            answer: "全部",
+            hint: "所有的一切"
+        }
     ];
 
     let score = 0;
+    
     questions.forEach((q, i) => {
-        const answer = prompt(`第 ${i+1} 題：${q}`);
-        if (answer) score += 25;
+        let attempt = 2;
+        while (attempt > 0) {
+            const userInput = prompt(`${q.text}（剩餘提示次數：${attempt}）\n輸入「hint」獲取提示`);
+            
+            if (!userInput) {
+                attempt = 0;
+                break;
+            }
+            
+            if (userInput.toLowerCase() === 'hint') {
+                alert(q.hint);
+                attempt--;
+                continue;
+            }
+            
+            // 答案驗證（包含格式處理）
+            const processedAnswer = userInput.trim().toLowerCase();
+            const correctAnswer = q.answer.toLowerCase();
+            
+            if (processedAnswer === correctAnswer) {
+                score += 25;
+                alert("🎉 答對了！");
+                break;
+            } else {
+                attempt--;
+                alert(`💔 答案不正確，剩餘嘗試次數：${attempt}`);
+            }
+        }
     });
 
     const earnedPoints = Math.floor(score);
     gameData.points += earnedPoints;
     saveGame();
-    alert(`💖 默契度 ${score}%！獲得 ${earnedPoints} 點！`);
+    
+    // 根據分數顯示不同評價
+    const evaluation = score >= 100 ? "天生一對！" :
+                     score >= 75 ? "心有靈犀！" :
+                     score >= 50 ? "還需磨合～" : 
+                     "要多多約會喔！";
+    
+    alert(`💖 默契度 ${score}%！${evaluation}\n獲得 ${earnedPoints} 點！`);
     showPage('home');
 }
 
