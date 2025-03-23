@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <title>小毓毓專屬好感遊戲</title>
+    <title>小嵐嵐專屬好感遊戲</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- 主頁 -->
     <div id="home" class="page">
-        <h1>❤️ 小毓毓專屬遊戲 ❤️</h1>
+        <h1>❤️ 小嵐嵐專屬遊戲 ❤️</h1>
         <div class="points-display">甜蜜點數：<span id="points">0</span></div>
         <button onclick="showPage('game')">開始遊戲</button>
         <button onclick="showPage('draw')">愛的抽卡</button>
@@ -35,7 +35,7 @@
 
     <!-- 卡庫頁 -->
     <div id="inventory" class="page">
-        <h2>📦 小毓毓專屬卡庫</h2>
+        <h2>📦 小嵐嵐專屬卡庫</h2>
         <div id="card-list"></div>
         <button onclick="showPage('home')">返回</button>
     </div>
@@ -44,12 +44,20 @@
     <div id="craft" class="page">
         <h2>🔨 卡片工坊</h2>
         <div class="recipe">
-            <h3>3張普通卡 → 1張稀有卡</h3>
+            <h3>3張普通卡(N) → 1張稀有卡(R)</h3>
             <button onclick="craftCard('R')">合成</button>
         </div>
         <div class="recipe">
-            <h3>2張稀有卡 → 1張超稀有卡</h3>
+            <h3>3張稀有卡(R) → 1張超稀有卡(SR)</h3>
             <button onclick="craftCard('SR')">合成</button>
+        </div>
+        <div class="recipe">
+            <h3>3張稀有卡(SR) → 1超級特別稀有(SSR)</h3>
+            <button onclick="craftCard('SSR')">合成</button>
+        </div>
+        <div class="recipe">
+            <h3>3張稀有卡(SSR) → 1極其稀有(UR)</h3>
+            <button onclick="craftCard('UR')">合成</button>
         </div>
         <button onclick="showPage('home')">返回</button>
     </div>
