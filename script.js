@@ -219,7 +219,9 @@ function useCard(index) {
 function craftCard(targetRarity) {
     const recipes = {
         'R': { need: 'N', amount: 3 },
-        'SR': { need: 'R', amount: 2 }
+        'SR': { need: 'R', amount: 3 },
+        'SSR': { need: 'SR', amount: 3 },
+        'UR': { need: 'SSR', amount: 3 }
     };
 
     const recipe = recipes[targetRarity];
